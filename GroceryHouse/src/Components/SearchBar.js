@@ -21,14 +21,14 @@ export default function SearchBar(props) {
   return (
     <View style={[styles.container, props.containerStyle]}>
       <View style={styles.iconView}>
-        <Icon name="search1" size={24} color={colors.secondary}></Icon>
+        <Icon name="search1" size={24} color={colors.primary}></Icon>
       </View>
       {!disabled ? (
         <TextInput
-          autoFocus={true}
-          placeholder={'Search'}
+          // autoFocus={true}
+          placeholder={'Search fresh fruits'}
           placeholderTextColor={colors.grey}
-          style={{...styles.textInput}}
+          style={{...styles.textInput, borderBottomColor:colors.primary, borderBottomWidth:1, color: colors.primary,}}
           {...props}
         />
       ) : (
@@ -38,8 +38,8 @@ export default function SearchBar(props) {
               onPress();
             }
           }}>
-          <View style={{...styles.textInput, justifyContent: 'center'}}>
-            <Text style={{color: colors.grey, fontSize: 16}}>Search</Text>
+          <View style={{...styles.textInput,  justifyContent: 'center', borderBottomColor:colors.primary, borderBottomWidth:1}}>
+            <Text style={{color: colors.grey, fontSize: 16}}>Search fresh fruits</Text>
           </View>
         </TouchableWithoutFeedback>
       )}
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     height: height,
     fontSize: 16,
     paddingHorizontal: 15,
-    borderRadius: 20,
+    // borderRadius: 20,
     paddingLeft: 50,
   },
 });

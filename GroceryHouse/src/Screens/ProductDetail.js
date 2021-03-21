@@ -47,36 +47,76 @@ class ProductDetail extends Component {
     const quantity = flag.length !== 0 ? flag[0].quantity : 0;
 
     return (
-      <Wrapper top={0} bottom={0} style={{backgroundColor: bgcolor}}>
-        <View style={styles.imageView}>
-          <Image style={styles.image} source={image} />
-        </View>
-        <TouchableWithoutFeedback onPress={() => Navigator.goBack()}>
-          <View style={styles.backIcon}>
-            <Icon name="chevron-back" color="black" size={30} />
+      <Wrapper bottom={0} style={{backgroundColor: colors.secondary}}>
+        <ScrollView
+          style={{flex: 1}}
+          bounces={false}
+          showsVerticalScrollIndicator={false}>
+        {/* <View style={{flex: 1, backgroundColor:'red'}} > */}
+
+          <View style={styles.backview}>
+          <View style={styles.imageView}>
+            <Image style={styles.image} source={image} />
           </View>
-        </TouchableWithoutFeedback>
-        <View style={{paddingHorizontal: metrics.defaultMargin}}>
-          <Text style={styles.heading}>{name}</Text>
-          <Text style={styles.smallHeading}>Description:</Text>
-          <Text style={styles.text}>{description}</Text>
-          <View style={styles.quantityView}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={this.deleteItem}
-              style={styles.iconView}>
-              <Icon name="remove" style={{...styles.icon}} />
-            </TouchableOpacity>
-            <Text style={styles.quantity}>{quantity}</Text>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={this.addItem}
-              style={styles.iconView}>
-              <Icon name="add" style={styles.icon} />
-            </TouchableOpacity>
-          </View>
+            </View> 
+          {/* <View style={styles.imageView}>
+            <Image style={styles.image} source={image} />
+          </View> */}
+          <TouchableWithoutFeedback onPress={() => Navigator.goBack()}>
+            <View style={styles.backIcon}>
+              <Icon name="chevron-back" color="black" size={30} />
+            </View>
+          </TouchableWithoutFeedback>
+          <View style={{paddingHorizontal: metrics.defaultMargin}}>
+            <Text style={[styles.heading,{marginTop:70, marginBottom: metrics.defaultMargin,}]}>{name}</Text>
+            {/* <Text style={styles.smallHeading}>Description:</Text> */}
+            <Text style={styles.text}>{description}</Text>
+
+            <View style={{flexDirection:'row', marginBottom: metrics.defaultMargin}} >
+              <View style={{backgroundColor:colors.lightBackground, justifyContent:'center', padding: metrics.smallMargin, marginRight: 10, borderRadius:10}}>
+                <Icon name="timer-outline" color="black" size={30} />
+              </View>
+              <View style={{}}>
+                <Text style={{fontSize:18, fontWeight:'bold'}} >Delivery Time</Text>
+                <Text>45 minutes</Text>
+              </View>
+            </View>
+
+            <View style={{flexDirection:'row', marginBottom: metrics.defaultMargin}} >
+              <View style={{backgroundColor:colors.lightBackground, justifyContent:'center', padding: metrics.smallMargin, marginRight: 10, borderRadius:10}}>
+                <Icon name="cash-outline" color="black" size={30} />
+              </View>
+              <View style={{}}>
+                <Text style={{fontSize:18, fontWeight:'bold'}} >Payment Mode</Text>
+                <Text>Payment on Delivery</Text>
+              </View>
+            </View>
+
+            <View style={{flexDirection:'row', justifyContent:'space-between', marginBottom: metrics.defaultMargin,}} >
+              <View >
+                <Text style={styles.heading}>${price.replace('$', '')}</Text>
+              </View>
+              <View style={styles.quantityView}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={this.deleteItem}
+                  style={styles.iconView}>
+                  <Icon name="remove" style={{...styles.icon}} />
+                </TouchableOpacity>
+                <Text style={styles.quantity}>{quantity}</Text>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={this.addItem}
+                  style={styles.iconView}>
+                  <Icon name="add" style={styles.icon} />
+                </TouchableOpacity>
+              </View>
+            </View>
         </View>
-            <TouchableWithoutFeedback
+        {/* </View> */}
+            
+        </ScrollView>
+        <TouchableWithoutFeedback
               onPress={() =>
                 Navigator.navigate('Checkout', {
                   item: this.props.route.params.item,
@@ -85,12 +125,9 @@ class ProductDetail extends Component {
               <View
                 style={[
                   styles.buttonView,
-                  {paddingBottom:30},
+                  
                 ]}>
-                <Text style={styles.buttonText}>
-                  Price: $ {price.replace('$', '')}
-                </Text>
-                <Text style={styles.buttonText}>Checkout</Text>
+                <Text style={styles.buttonText}>Add to cart</Text>
               </View>
             </TouchableWithoutFeedback>
       </Wrapper>
@@ -101,14 +138,18 @@ class ProductDetail extends Component {
 const styles = StyleSheet.create({
   image: {
     width: metrics.width,
-    height: '90%',
+    height: '80%',
     resizeMode: 'contain',
+    justifyContent:'flex-end',
+    position:'relative', bottom:-70
   },
   heading: {
     fontFamily: fonts.secondaryBold,
     fontSize: 28,
-    marginBottom: metrics.defaultMargin,
-    color: colors.secondary,
+    fontWeight:'bold'
+    // marginBottom: metrics.defaultMargin,
+    // color: colors.secondary,
+    
   },
   smallHeading: {
     fontFamily: fonts.primaryBold,
@@ -120,31 +161,34 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 20,
     marginBottom: metrics.defaultMargin,
-    color: colors.secondary,
+    color: colors.grey,
   },
   imageView: {
     flex: 1,
     justifyContent: 'flex-end',
   },
   buttonView: {
-    backgroundColor: colors.secondary,
+    backgroundColor:'rgba(34,157,86,0.7)',
+
+    // backgroundColor: colors.primary,
     flexDirection: 'row',
     padding: 20,
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     borderTopStartRadius: 30,
+    borderTopEndRadius:30,
     paddingHorizontal: 30,
-    marginLeft: metrics.defaultMargin,
+    marginHorizontal: metrics.defaultMargin,
   },
   buttonText: {
     color: 'white',
     fontSize: 22,
-    fontFamily: fonts.primaryBold,
+    fontWeight:'bold'
   },
   backIcon: {
     position: 'absolute',
     top: 50,
     left: metrics.defaultMargin,
-    backgroundColor: colors.background,
+    // backgroundColor: colors.background,
     width: 50,
     height: 50,
     borderRadius: 10,
@@ -155,25 +199,50 @@ const styles = StyleSheet.create({
   quantityView: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: metrics.defaultMargin,
+    // marginBottom: metrics.defaultMargin,
+    backgroundColor:'transparent',
+    borderRadius: 5,
+    borderColor: colors.lightBackground,
+    borderWidth:1
+    // shadowColor: "#000",
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 1,
+    // },
+    // shadowOpacity: 0.22,
+    // shadowRadius: 2.22,
+
+    // elevation: 3,
   },
   iconView: {
     width: 40,
     height: 40,
     borderRadius: 5,
-    backgroundColor: colors.secondary,
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
   },
   icon: {
     fontSize: 24,
-    color: 'white',
+    color: 'black',
   },
   quantity: {
     marginHorizontal: 10,
     fontSize: 20,
     fontWeight: 'bold',
   },
+  backview:{
+    backgroundColor:'rgba(34,157,86,0.7)',
+    // backgroundColor: colors.primary,
+
+    width: metrics.width,
+    height:180,
+    position:'relative',
+    top:0,
+    left:0,
+    borderBottomRightRadius:35,
+    borderBottomLeftRadius:35,
+  }
 });
 
 const mapStateToProps = (state) => {

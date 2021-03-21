@@ -58,7 +58,7 @@ class Checkout extends Component {
         address: this.state.phoneNumber,
         slotdatetime: new Date().toString(),
         email: this.state.email,
-        appname: 'FlowerVista',
+        appname: 'GroceryHouse',
         item: JSON.stringify(this.props.route.params.item),
       }),
     });
@@ -95,10 +95,11 @@ class Checkout extends Component {
   render() {
     return (
       <Wrapper bottom={0}>
-        <Header title="Order Detail" />
+        <Header textStyle={{fontWeight:'bold'}} title="Checkout" />
 
         <OrderPlaced
-          visible={this.state.visible}
+          // visible={this.state.visible}
+          visible={true}
           onPress={() => {
             this.setState({visible: false});
             this.props.emptyCart();
@@ -114,108 +115,99 @@ class Checkout extends Component {
                 flex: 1,
                 paddingHorizontal: metrics.defaultMargin,
               }}>
-              {this.props.cart.items.map((item) => (
-                <CartItem
-                  item={item}
-                  quantity={item.quantity}
-                  onAdd={() => this.props.addItem(item)}
-                  onMinus={() => this.props.deleteItem(item)}
-                />
-              ))}
-              <View style={styles.info}>
-                <Text style={styles.title}>Total Price</Text>
-                <Text style={styles.text}>
-                  $ {parseInt(this.props.cart.totalPrice) * this.state.quantity}
-                </Text>
-              </View>
-              <View style={styles.info}>
-                <Text style={styles.title}>Payment Mode</Text>
-                <Text style={styles.text}>Cash on Delivery</Text>
-              </View>
-              <Text style={[styles.heading, {fontSize: 24}]}>
-                Customer Detail
-              </Text>
-              <Input
-                required
-                placeholder="First Name"
-                label="First name"
-                textValue={this.state.fname}
-                returnKeyType="next"
-                onRef={(ref) => {
-                  this.inputs['fname'] = ref;
-                }}
-                onChangeText={(text) => {
-                  this.onChange('fname', text);
-                }}
-                onSubmitEditing={() => {
-                  this.focusNextField('lname');
-                }}
-              />
-              <Input
-                required
-                placeholder="Last Name"
-                label="Last name"
-                textValue={this.state.lname}
-                returnKeyType="next"
-                onRef={(ref) => {
-                  this.inputs['lname'] = ref;
-                }}
-                onChangeText={(text) => {
-                  this.onChange('lname', text);
-                }}
-                onSubmitEditing={() => {
-                  this.focusNextField('email');
-                }}
-              />
-              <Input
-                required
-                placeholder="Email"
-                label="Email"
-                keyboardType={'email-address'}
-                textValue={this.state.email}
-                returnKeyType="next"
-                onRef={(ref) => {
-                  this.inputs['email'] = ref;
-                }}
-                onChangeText={(text) => {
-                  this.onChange('email', text);
-                }}
-                onSubmitEditing={() => {
-                  this.focusNextField('phoneNumber');
-                }}
-              />
-              <Input
-                required
-                placeholder="Mobile Number"
-                label="Mobile No."
-                textValue={this.state.phoneNumber}
-                returnKeyType="next"
-                onRef={(ref) => {
-                  this.inputs['phoneNumber'] = ref;
-                }}
-                onChangeText={(text) => {
-                  this.onChange('phoneNumber', text);
-                }}
-                keyboardType={'phone-pad'}
-                onSubmitEditing={() => {
-                  this.focusNextField('address');
-                }}
-              />
-              <Input
-                required
-                placeholder="Address"
-                label="Address"
-                textValue={this.state.address}
-                onRef={(ref) => {
-                  this.inputs['address'] = ref;
-                }}
-                onChangeText={(text) => {
-                  this.onChange('address', text);
-                }}
-                multiline={true}
-                inputStyle={{height: 100}}
-              />
-            </KeyboardAwareScrollView>
+                <View style={{flex:1}} >
+                  {this.props.cart.items.map((item) => (
+                    <CartItem
+                      item={item}
+                      quantity={item.quantity}
+                      onAdd={() => this.props.addItem(item)}
+                      onMinus={() => this.props.deleteItem(item)}
+                    />
+                  ))}
+                
+                  
+                  <Input
+                    required
+                    placeholder="First Name"
+                    label="First name"
+                    textValue={this.state.fname}
+                    returnKeyType="next"
+                    onRef={(ref) => {
+                      this.inputs['fname'] = ref;
+                    }}
+                    onChangeText={(text) => {
+                      this.onChange('fname', text);
+                    }}
+                    onSubmitEditing={() => {
+                      this.focusNextField('lname');
+                    }}
+                  />
+                  <Input
+                    required
+                    placeholder="Last Name"
+                    label="Last name"
+                    textValue={this.state.lname}
+                    returnKeyType="next"
+                    onRef={(ref) => {
+                      this.inputs['lname'] = ref;
+                    }}
+                    onChangeText={(text) => {
+                      this.onChange('lname', text);
+                    }}
+                    onSubmitEditing={() => {
+                      this.focusNextField('email');
+                    }}
+                  />
+                  <Input
+                    required
+                    placeholder="Email"
+                    label="Email"
+                    keyboardType={'email-address'}
+                    textValue={this.state.email}
+                    returnKeyType="next"
+                    onRef={(ref) => {
+                      this.inputs['email'] = ref;
+                    }}
+                    onChangeText={(text) => {
+                      this.onChange('email', text);
+                    }}
+                    onSubmitEditing={() => {
+                      this.focusNextField('phoneNumber');
+                    }}
+                  />
+                  <Input
+                    required
+                    placeholder="Mobile Number"
+                    label="Mobile No."
+                    textValue={this.state.phoneNumber}
+                    returnKeyType="next"
+                    onRef={(ref) => {
+                      this.inputs['phoneNumber'] = ref;
+                    }}
+                    onChangeText={(text) => {
+                      this.onChange('phoneNumber', text);
+                    }}
+                    keyboardType={'phone-pad'}
+                    onSubmitEditing={() => {
+                      this.focusNextField('address');
+                    }}
+                  />
+                  <Input
+                    required
+                    placeholder="Address"
+                    label="Address"
+                    textValue={this.state.address}
+                    onRef={(ref) => {
+                      this.inputs['address'] = ref;
+                    }}
+                    onChangeText={(text) => {
+                      this.onChange('address', text);
+                    }}
+                    multiline={true}
+                    inputStyle={{height: 100}}
+                  />
+
+                </View>
             <SafeAreaInsetsContext.Consumer>
               {(insets) => (
                 <TouchableWithoutFeedback
@@ -231,16 +223,14 @@ class Checkout extends Component {
                       <BarIndicator color="white" size={24} />
                     ) : (
                       <>
-                        <Text style={styles.buttonText}>
-                          Total Price: $ {this.props.cart.totalPrice}
-                        </Text>
-                        <Text style={styles.buttonText}>Place Order</Text>
+                        <Text style={styles.buttonText}>Order Now</Text>
                       </>
                     )}
                   </View>
                 </TouchableWithoutFeedback>
               )}
             </SafeAreaInsetsContext.Consumer>
+            </KeyboardAwareScrollView>
           </>
         ) : (
           <View
@@ -260,19 +250,22 @@ const styles = StyleSheet.create({
     marginVertical: metrics.defaultMargin,
   },
   buttonView: {
-    backgroundColor: colors.secondary,
+    backgroundColor:'rgba(34,157,86,0.7)',
     flexDirection: 'row',
     padding: 20,
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     borderTopStartRadius: 30,
+    borderTopEndRadius:30,
     paddingHorizontal: 30,
-    marginLeft: metrics.defaultMargin,
+    // marginLeft: metrics.defaultMargin,
     minHeight: 80,
+    // marginRight: metrics.defaultMargin,
+
   },
   buttonText: {
-    color: 'white',
+    color: colors.secondary,
     fontSize: 20,
-    fontFamily: fonts.primaryBold,
+    fontWeight:'bold',
   },
   iconView: {
     backgroundColor: 'rgb(255,255,255)',

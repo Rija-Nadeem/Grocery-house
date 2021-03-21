@@ -17,14 +17,15 @@ class Fav extends Component {
       <TouchableOpacity
         onPress={() => this.props.addFav(this.props.item)}
         style={{
-          backgroundColor: this.props.isFav ? colors.primary : 'transparent',
+          backgroundColor: 'transparent',
           width: 40,
           height: 40,
           borderRadius: 20,
           alignItems: 'center',
           justifyContent: 'center',
           alignSelf:'flex-end',
-          marginHorizontal:20,
+          marginHorizontal:25,
+          paddingRight:10,
           position:'absolute',
           ...this.props.style,
         }}>
@@ -32,7 +33,7 @@ class Fav extends Component {
           name={'heart'}
           style={{
             fontSize: 22,
-            color: colors.secondary
+            color: this.props.isFav? colors.primary : colors.secondary
           }}
         />
       </TouchableOpacity>

@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     fontSize: 32,
-    color: 'white',
+    color: colors.primary,
   },
   backView: {
     width: 44,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.secondary,
+    // backgroundColor: colors.primary,
     marginRight:20
   },
   text: {

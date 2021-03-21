@@ -10,7 +10,7 @@ class Wrapper extends Component {
   render() {
     const {top, bottom} = this.props;
     return (
-      <View style={{flex: 1, backgroundColor: colors.primary}}>
+      <View style={{flex: 1, backgroundColor: colors.secondary}}>
         <StatusBar
           backgroundColor={colors.background}
           barStyle="dark-content"
@@ -22,7 +22,7 @@ class Wrapper extends Component {
                 flex: 1,
                 marginTop: top == 0 ? top : insets.top,
                 paddingBottom: bottom == 0 ? bottom : insets.bottom,
-                backgroundColor: colors.background,
+                // backgroundColor: colors.background,
                 ...this.props.style,
               }}>
               {this.props.children}

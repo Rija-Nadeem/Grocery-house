@@ -15,7 +15,7 @@ function SearchScreen(props) {
   const [searchQueryText, setsearchQueryText] = useState('');
 
   useEffect(() => {
-    var updated_list = data.items.filter((val) =>
+    var updated_list = props.products.filter((val) =>
       val.name.toLowerCase().includes(searchQueryText.toLowerCase()),
     );
     setlist(updated_list);
@@ -23,24 +23,29 @@ function SearchScreen(props) {
 
   return (
     <RootView>
-      <Header title={'Search'}></Header>
+      <Header textStyle={{fontWeight:'bold'}} title={'All Fruits'}></Header>
       <SearchBar onChangeText={(value) => setsearchQueryText(value)} />
       <View style={{margin: metrics.defaultMargin}}>
-        <Text>
-          <Text style={{fontFamily: fonts.primary}}>Found </Text>
-          {list.length} Results
+      <Text>
+          <Text style={{fontFamily: fonts.primary, }}>Found </Text>
+          <Text style={{fontWeight:'bold', color: colors.primary, fontSize:16}}>{list.length} Fruits</Text>
         </Text>
       </View>
       <FlatList
-        showsVerticalScrollIndicator={false}
-        bounces={false}
-        data={list}
-        style={{padding: metrics.defaultMargin}}
-        keyExtractor={() => Math.random().toString()}
+       showsVerticalScrollIndicator={false}
+       horizontal={false}
+       numColumns={2}
+       bounces={false}
+       data={list}
+       style={{padding: metrics.defaultMargin}}
+       keyExtractor={() => Math.random().toString()}
         renderItem={({item}) => (
           <ItemCard
             item={item}
-            style={{marginBottom: metrics.defaultMargin, width: '100%'}}
+            container={{width: metrics.width * 0.42, marginBottom:metrics.smallMargin}}
+            imageStyle={{width:150, height:150}}
+            showFav={true}
+            // style={{marginBottom: metrics.defaultMargin, width: '100%'}}
           />
         )}
       />

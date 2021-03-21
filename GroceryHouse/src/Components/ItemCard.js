@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Navigator from '../utils/Navigator';
-import {colors, metrics} from '../utils/Theme';
+import {colors, fonts, metrics} from '../utils/Theme';
+import Fav from './Fav';
+
 export default class ItemCard extends Component {
   constructor(props) {
     super(props);
@@ -16,60 +12,79 @@ export default class ItemCard extends Component {
   }
 
   render() {
-    const {image, price, name,bgcolor} = this.props.item;
+    const {name, image, description, price,bgcolor,isFav} = this.props.item;
+    console.log('search', name, isFav)
     return (
-      <TouchableWithoutFeedback
-        onPress={() =>
-          Navigator.navigate('ProductDetail', {
-            item: this.props.item,
-            category: this.props.item.categoryid,
-          })
-        }>
-        <View style={[styles.container,{backgroundColor:bgcolor,...this.props.style}]}>
-          <Image source={image} style={styles.image} />
-          <View style={{flex: 1}}>
-            <Text style={styles.title}>{name}</Text>
-            <Text style={styles.price}>${price}</Text>
+      <TouchableOpacity
+        activeOpacity={0.9}
+        onPress={() => Navigator.navigate('ProductDetail',{item:this.props.item,category:this.props.category})}>
+        <View style={[styles.container,{...this.props.container}]}>
+          <View style={{margin:metrics.defaultMargin}}>
+            <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
+            {name.substr(0,name.indexOf(' '))}{'\n'}{name.substr(name.indexOf(' ')+1)}
+              </Text>
+            {/* <Text style={styles.desc} numberOfLines={1} ellipsizeMode="tail">
+              {description}
+            </Text> */}
+            <Text style={styles.price}>
+              <Text style={{fontWeight:'bold'}} >${price.replace('$', '')} {' '}</Text>
+              <Text style={{fontSize: 14}}>each</Text>
+            </Text>
           </View>
-          <View style={styles.iconView}>
-            <Icon name="plus" color="white" size={24} />
+          <View style={[styles.imageView,{...this.props.imageStyle}]}>
+            <Image source={image} style={styles.image} />
+          </View>
+          {this.props.showFav && <Fav isFav={isFav} item={this.props.item}/> }
+          <View style={styles.detailView}>
+            <View style={styles.iconView}>
+              <Icon name="plus" color={colors.primary} size={24} />
+            </View>
           </View>
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: metrics.width / 1.3,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    backgroundColor: 'white',
-    shadowColor: colors.grey,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    padding: 15,
-    marginRight: 20,
-    borderRadius: 20,
+    width: 230,
+   
+    marginRight: metrics.defaultMargin,
+    borderRadius:30,
+    backgroundColor:'rgba(34,157,86,0.2)'
+
+  },
+  imageView: {
+    width: 200,
+    height: 200,
+    alignSelf:'center',
+    backgroundColor:'transparent',
+    borderRadius:30,
+    // marginVertical:15,
+    
   },
   image: {
-    width: 70,
-    height: 70,
-    borderRadius: 15,
-    marginRight: 20,
-    backgroundColor:'white',
-    resizeMode:'contain'
+    width: '100%',
+    height: '100%',
+    resizeMode:'cover'
   },
-
+  detailView: {
+    // // paddingLeft: 30,
+    // // paddingBottom: 20,
+    // // paddingRight: 10,
+    // shadowColor: colors.grey,
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 3.84,
+    // borderRadius: 15,
+  },
   iconView: {
-    backgroundColor: colors.secondary,
-    borderBottomEndRadius: 15,
-    borderTopStartRadius: 15,
+    backgroundColor: 'rgba(255,255,255,.4)',
+    borderBottomEndRadius: 30,
     width: 45,
     height: 45,
     alignItems: 'center',
@@ -77,21 +92,19 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     right: 0,
-    shadowColor: colors.secondary,
-    shadowOffset: {
-      width: 2,
-      height: 2,
-    },
-    shadowOpacity: 0.75,
-    shadowRadius: 3.84,
   },
   title: {
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight:'bold'  
+  },
+  desc: {
+    color: colors.grey,
+    marginVertical: 5,
+    fontFamily: fonts.secondary,
   },
   price: {
-    marginTop: 10,
+    marginTop: 5,
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: fonts.secondaryBold,
   },
 });

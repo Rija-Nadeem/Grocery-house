@@ -134,16 +134,17 @@ const styles = StyleSheet.create({
   inputStyle: {
     fontSize: 14,
     textAlign: 'left',
-    borderColor: colors.secondary,
-    borderWidth: 1,
+    borderBottomColor: colors.primary,
+    borderBottomWidth: 1,
     paddingHorizontal: 15,
     paddingVertical: 5,
     height: 45,
     backgroundColor: 'white',
-    borderRadius: 10,
+    // borderRadius: 10,
+    color: colors.primary
   },
   label: {
-    color: colors.secondary,
+    // color: colors.secondary,
     marginVertical: 10,
     fontWeight: 'bold',
     fontSize: 16,

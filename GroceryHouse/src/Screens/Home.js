@@ -13,6 +13,7 @@ import {colors, fonts, metrics} from '../utils/Theme';
 import data from '../../data';
 import Category from '../Components/Category';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon2 from 'react-native-vector-icons/AntDesign';
 import Navigator from '../utils/Navigator';
 import {connect} from 'react-redux';
 
@@ -28,12 +29,12 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const items = this.props.products.filter(
-      (val) => val.categoryid == this.state.selectedCategory,
-    );
+    // const items = this.props.products.filter(
+    //   (val) => val.categoryid == this.state.selectedCategory,
+    // );
     const recommended = this.props.products.filter((val) => val.recommended);
     this.setState({
-      items: items,
+      items: this.props.products,
       recommended: recommended,
     });
   }
@@ -58,24 +59,31 @@ class Home extends Component {
   }
 
   render() {
+    console.log('render items', this.state.items)
     return (
       <Wrapper>
         <ScrollView
           style={{flex: 1}}
           bounces={false}
           showsVerticalScrollIndicator={false}>
+            
+          <View style={styles.headingContainer}>
           <Text style={styles.heading}>
-            Send Flowers and share your{' '}
-            <Text style={{fontFamily: fonts.primaryBold}}>Love</Text>
+           Grocery House
           </Text>
           <Icon
-            onPress={() => Navigator.navigate('Checkout')}
-            name="cart"
-            style={styles.icon}
-          />
-          <SearchBar disabled />
+              onPress={() => Navigator.navigate('Checkout')}
+              name="cart"
+              style={styles.icon}
+            />
+          </View>
+          
+          <Text style={styles.subMainHeading}>Find fresh fruits what you want</Text>
+          <View style={{marginVertical:metrics.defaultMargin}} >
+            <SearchBar disabled />
+          </View>
 
-          <View style={{marginTop:10}}>
+          {/* <View style={{marginTop:10}}>
             <HorizontalList
               data={data.category}
               renderItem={({item}) => (
@@ -86,29 +94,45 @@ class Home extends Component {
                 />
               )}
             />
+          </View> */}
+
+          <View style={{flexDirection:'row', justifyContent:'space-between',marginHorizontal:metrics.defaultMargin, marginBottom: metrics.defaultMargin}} >
+            <Text style={styles.subHeading}>Top Selling</Text>
+            <TouchableWithoutFeedback
+              // style={{backgroundColor:'red', padding:20}}
+              onPress={() => Navigator.navigate('Search')}
+            >
+              <Text style={{fontSize:16, color: colors.grey}} >See All</Text>
+            </TouchableWithoutFeedback>
           </View>
 
             <HorizontalList
-              data={this.state.items}
+            data={this.state.recommended}
+              // data={this.state.items}
               renderItem={({item}) => (
                 <FoodCard item={item} />
               )}
             />
 
 
-          <Text style={styles.subHeading}>Recommended</Text>
+          {/* <Text style={[styles.subHeading,{marginHorizontal:metrics.defaultMargin, marginBottom: metrics.defaultMargin}]}>Recommended</Text>
           <HorizontalList
             data={this.state.recommended}
             renderItem={({item}) => <ItemCard item={item} />}
-          />
-          {this.props.favProducts.length > 0 && (
+          /> */}
+              <Text style={[styles.subHeading, {marginHorizontal:metrics.defaultMargin, marginBottom: metrics.defaultMargin}]}>Favourites</Text>
+          {this.props.favProducts.length > 0 ? (
             <>
-              <Text style={styles.subHeading}>Favourites</Text>
               <HorizontalList
                 data={this.props.favProducts}
                 renderItem={({item}) => <ItemCard item={item} />}
               />
             </>
+          ):
+          (
+            <View style={styles.favInfo}>
+              <Text style={styles.favText}>Add Your Favouite Fruits</Text>
+            </View>
           )}
         </ScrollView>
       </Wrapper>
@@ -117,16 +141,42 @@ class Home extends Component {
 }
 
 const styles = StyleSheet.create({
+  headingContainer:{
+    display:'flex',
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center',
+    marginHorizontal: metrics.defaultMargin,
+    marginTop:metrics.largeMargin,
+
+    // marginBottom:0,
+    // marginVertical:0,
+    // flex:1,
+    // borderColor:'red',
+    // borderWidth:1
+  },
   heading: {
-    fontFamily: fonts.primary,
     fontSize: 28,
-    margin: metrics.defaultMargin,
-    marginRight: metrics.width * 0.35,
+    // margin: metrics.defaultMargin,
+    marginBottom: 5,
+    // marginLeft:0,
+    fontWeight:'bold',
+    // color:colors.primary,
+    // backgroundColor:'red'
+  },
+  subMainHeading:{
+    fontFamily: fonts.primary,
+    fontSize: 18,
+    marginHorizontal: metrics.defaultMargin,
+    // marginRight: metrics.width * 0.35,
+    // fontWeight:'bold',
+    color:colors.grey
   },
   subHeading: {
-    fontFamily: fonts.primaryBold,
-    fontSize: 24,
-    margin: metrics.defaultMargin,
+    fontWeight:'bold',
+    fontSize: 20,
+    // marginHorizontal: metrics.defaultMargin,
+    // marginBottom : metrics.defaultMargin
   },
   category: {
     transform: [{rotate: '270deg'}],
@@ -151,11 +201,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   icon: {
-    position: 'absolute',
-    right: metrics.defaultMargin,
-    top: metrics.defaultMargin,
     fontSize: 32,
-    color: colors.secondary,
+    color: colors.primary,
+  },
+  favInfo:{
+    backgroundColor: 'rgba(34,157,86,0.2)',
+    paddingVertical:metrics.largeMargin,
+    marginHorizontal:metrics.defaultMargin,
+    borderRadius:30
+  },
+  favText:{
+    textAlign:'center',
+    color: colors.primary,
+    fontSize:16,
+    lineHeight:25
   },
 });
 

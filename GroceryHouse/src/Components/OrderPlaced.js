@@ -14,12 +14,14 @@ export default class OrderPlaced extends Component {
         <View style={styles.modalView}>
           <View style={styles.centeredView}>
             <View style={styles.iconView}>
-              <Icon name="check" color={'white'} size={54} />
+              <Icon name="check" color={colors.primary} size={54} />
             </View>
-            <Text style={styles.title}>
-              Your order has been placed. You will receive a confirmation call
-              shortly!
+            <Text style={[styles.title]}>
+              Order placed!
             </Text>
+              <Text style={{fontSize:16, textAlign:'center', marginBottom: 20 }}>
+              Thankyou, you will soon receive your fresh fruits.
+              </Text>
             <View style={{borderRadius: 10, overflow: 'hidden',marginVertical:10}}>
               <Text onPress={this.props.onPress} style={styles.button}>Ok</Text>
             </View>
@@ -51,29 +53,29 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   iconView: {
-    backgroundColor: colors.secondary,
+    backgroundColor: 'rgba(34,157,86,0.2)',
     width: 100,
     height: 100,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 20,
+    borderRadius: 50,
     alignSelf: 'center',
     marginVertical: 20,
   },
   title: {
     fontSize: 22,
-    fontFamily: fonts.primaryBold,
+    fontWeight:'bold',
     textAlign: 'center',
-    marginVertical: 20,
-    lineHeight: 32,
+    marginTop: 20,
+    marginBottom: metrics.smallMargin,
   },
   button: {
-    backgroundColor: colors.primary,
+    backgroundColor: 'rgba(34,157,86,0.7)',
     color: 'white',
     padding: 10,
     borderRadius: 10,
     textAlign: 'center',
     fontSize: 18,
-    fontFamily: fonts.secondaryBold,
+    fontWeight:'bold'
   },
 });
